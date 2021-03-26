@@ -2,7 +2,7 @@
 
 const nlpAnalysis = async (event)=>{
     event.preventDefault()
-    let  url = '/getAnalysis'
+    let  url = 'http://localhost:3000/getAnalysis'
     let input= document.getElementById("url").value
 
 
@@ -46,13 +46,21 @@ function invalidURL(){
 
 
 function showAnalysis(response){
+    if(response.model==undefined){
+    document.getElementById("model").innerHTML="Can't fetch data for this URL";
+    document.getElementById("confidence").innerHTML="";
+    document.getElementById("agreement").innerHTML="";
+    document.getElementById("subjectivity").innerHTML="";
+    document.getElementById("irony").innerHTML="";
+    }
 
-
+    else{
     document.getElementById("model").innerHTML= "Model: "+response.model;
     document.getElementById("confidence").innerHTML="Confidence: " +response.confidence;
     document.getElementById("agreement").innerHTML="Agreement: "+response.agreement;
     document.getElementById("subjectivity").innerHTML="Subjectivity: "+response.subjectivity;
-    document.getElementById("irony").innerHTML="Irony: "+response.irony;    
+    document.getElementById("irony").innerHTML="Irony: "+response.irony;   
+    } 
 
 }
 export {showAnalysis}
